@@ -17,6 +17,7 @@
 }
 
 :root {
+  --font-geist-sans: Arial, Helvetica, sans-serif; --font-geist-mono: "SFMono-Regular", Consolas, monospace;
   --background:#f3f7f8; --foreground:#13263a; --card:#fff; --card-foreground:#13263a;
   --primary:#00a7a0; --primary-foreground:#fff; --secondary:#e9f1f3; --secondary-foreground:#17354a;
   --muted:#eaf0f2; --muted-foreground:#607482; --border:#d4e0e4; --input:#c9d7dc;
