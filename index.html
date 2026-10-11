@@ -1,14 +1,368 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Interactive HOYA CarbonLink Scope 3 Category 10 portal demonstration." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>HOYA CarbonLink | Category 10 Portal</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Greenovate — HOYA Scope 3 Category 10</title>
+<style>
+:root{
+  --bg:#f5f8f7;--card:#fff;--ink:#16221d;--muted:#68766f;--line:#dce6e1;
+  --green:#0b6b50;--green2:#15906a;--green3:#e9f6f0;--teal:#3ba783;
+  --amber:#996000;--amberbg:#fff4da;--red:#b42318;--redbg:#fff0ee;--blue:#2d6d91;--bluebg:#eaf3f8;
+  --purple:#6655a5;--purplebg:#f0edfb;--shadow:0 12px 32px rgba(18,55,41,.07);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.login{min-height:100vh;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 20% 10%,#dff2ea 0,transparent 34%),linear-gradient(145deg,#f7fbf9,#eef5f2)}
+.loginbox{width:min(900px,100%);background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px;box-shadow:0 28px 80px rgba(14,52,39,.12)}
+.loginbrand{display:flex;align-items:center;gap:12px;margin-bottom:28px}.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--green),#47ad84);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px}
+.login h1{font-size:32px;margin:0 0 8px;letter-spacing:-.035em}.login p{color:var(--muted);margin:0}.workspace-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}.workspace{border:1px solid var(--line);border-radius:18px;padding:22px;background:#fbfdfc;display:flex;flex-direction:column;min-height:265px}.workspace h2{margin:10px 0 6px;font-size:20px}.workspace .icon{width:40px;height:40px;border-radius:12px;background:var(--green3);color:var(--green);display:grid;place-items:center;font-weight:900}.workspace>p{min-height:36px}.workspace ul{padding-left:18px;color:var(--muted);font-size:13px;line-height:1.65;min-height:78px;margin-bottom:16px;flex:1}.workspace .sso{margin-top:auto}.sso{width:100%;border:0;border-radius:11px;padding:12px 14px;font-weight:800;background:var(--green);color:#fff}.sso.secondary{background:#17372d;color:#fff}.demo-note{margin-top:18px!important;font-size:12px;text-align:center}
+.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:sticky;top:0;z-index:30}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}.brand .mark{width:34px;height:34px;font-size:16px}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:600}.righttools{display:flex;align-items:center;gap:8px}.mode{display:flex;gap:5px;background:#eef3f1;border-radius:11px;padding:4px}.mode button{border:0;background:transparent;padding:7px 10px;border-radius:8px;color:#516058}.mode button.active{background:#fff;color:var(--green);font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.06)}.select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;color:var(--ink)}
+.layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:calc(100vh - 68px)}.sidebar{background:#fff;border-right:1px solid var(--line);padding:20px 14px}.side-label{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#8a9690;margin:10px}.navbtn{width:100%;text-align:left;border:0;background:transparent;border-radius:10px;padding:11px 12px;margin:3px 0;color:#4f5d56}.navbtn:hover{background:#f5f8f7}.navbtn.active{background:var(--green3);color:var(--green);font-weight:800}.main{padding:28px;max-width:1550px;width:100%;margin:0 auto}.page{display:none}.page.active{display:block}.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px}.head h1{margin:0 0 6px;font-size:29px;letter-spacing:-.035em}.head p{margin:0;color:var(--muted);max-width:920px}
+.grid{display:grid;gap:15px}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}.stat{padding:16px}.stat .k{font-size:12px;color:var(--muted)}.stat .v{font-size:26px;font-weight:900;margin-top:4px}.stat .s{font-size:12px;color:var(--muted);margin-top:3px}.section-title{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px}.section-title h2{margin:0;font-size:18px}.section-title p{margin:3px 0 0;color:var(--muted);font-size:13px}.mini{font-size:12px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:800}.pill.green{background:var(--green3);color:var(--green)}.pill.amber{background:var(--amberbg);color:var(--amber)}.pill.red{background:var(--redbg);color:var(--red)}.pill.blue{background:var(--bluebg);color:var(--blue)}.pill.purple{background:var(--purplebg);color:var(--purple)}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800}.primary{background:var(--green);color:#fff}.secondary{background:#edf3f0;color:#31463c}.ghost{background:#fff;border:1px solid var(--line);color:#425049}.btn:disabled{opacity:.45;cursor:not-allowed}.simple-note{background:#f2f8f5;border:1px solid #d7eae1;border-radius:12px;padding:12px 14px;color:#3f5a4e;font-size:13px}.warn-note{background:var(--amberbg);border:1px solid #efd29b;border-radius:12px;padding:12px 14px;color:#775312;font-size:13px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.step{position:relative;border:1px solid var(--line);border-radius:13px;padding:14px;background:#fbfcfb;min-height:92px}.step strong{display:block;margin-bottom:5px}.step span{font-size:13px;color:var(--muted)}.step.current{border:2px solid var(--green2);background:var(--green3);box-shadow:0 0 0 3px rgba(21,144,106,.08)}.step.current:after{content:"CURRENT";position:absolute;right:10px;top:10px;font-size:9px;letter-spacing:.08em;font-weight:900;color:var(--green)}.step.done{background:#f6faf8}.step.done strong:before{content:"✓ ";color:var(--green)}
+.drop{border:2px dashed #c7d8cf;border-radius:14px;background:#f8fbf9;padding:24px;text-align:center;color:#627168}.drop strong{display:block;color:#2d4137;margin-bottom:4px}.drop input{margin-top:12px}.connection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.connection{border:1px solid var(--line);border-radius:13px;padding:14px;background:#fbfcfb}.connection b{display:block;margin-bottom:4px}.status-dot{display:inline-block;width:8px;height:8px;border-radius:99px;background:#aab7b0;margin-right:6px}.status-dot.on{background:var(--green2)}
+.schema{border:1px solid var(--line);border-radius:14px;overflow:hidden}.schema-row{display:grid;grid-template-columns:1.2fr 1.4fr .65fr;gap:10px;padding:10px 12px;border-bottom:1px solid #edf1ef;align-items:center}.schema-row:last-child{border-bottom:0}.schema-row.headrow{background:#f6f9f7;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#7d8983;font-weight:800}.map-ok{font-size:12px;color:var(--green);font-weight:800}
+.metric-group{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:12px}.metric-group h3{margin:0;padding:11px 13px;background:#f6f9f7;border-bottom:1px solid var(--line);font-size:14px}.metricline{display:flex;justify-content:space-between;gap:14px;padding:10px 13px;border-bottom:1px solid #edf1ef;font-size:13px}.metricline:last-child{border-bottom:0}.metricline span{color:var(--muted)}.metricline b{text-align:right}.source-tag{display:block;font-size:10px;font-weight:600;color:#839088;margin-top:2px}.review-scroll{max-height:610px;overflow:auto;padding-right:4px}
+.progress{height:8px;background:#edf2ef;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:var(--green2)}
+table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:uppercase;letter-spacing:.055em;color:#7c8882;text-align:left;padding:10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:2}td{padding:11px 10px;border-bottom:1px solid #edf1ef;font-size:13px}.clickrow{cursor:pointer}.clickrow:hover{background:#f8fbf9}.tablewrap{overflow:auto;max-height:620px}
+.factorbar,.segment-tabs,.metric-tabs{display:flex;gap:7px;flex-wrap:wrap}.factorbar{margin-bottom:15px}.chip,.seg-tab,.metric-tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;color:#5d6b64}.chip.active,.seg-tab.active,.metric-tab.active{background:var(--green3);border-color:#b9dece;color:var(--green);font-weight:900}.segment-tabs{padding:10px 0 13px;border-bottom:1px solid var(--line);margin-bottom:12px}.seg-tab{border-radius:9px}.metric-tabs{margin-bottom:13px}.metric-tab{border-radius:8px;padding:8px 10px}
+.plot-wrap{display:grid;grid-template-columns:minmax(0,2.6fr) minmax(250px,1fr);gap:15px}.plot-card{border:1px solid var(--line);border-radius:14px;background:#fbfdfc;padding:14px}.plot-card .section-title{align-items:flex-start;flex-wrap:wrap;row-gap:9px}.plot-card .section-title>div{min-width:0;flex:1 1 360px}.plot-card .section-title h2{line-height:1.25;overflow-wrap:anywhere}.plot-card .section-title p{line-height:1.45;overflow-wrap:anywhere;max-width:760px}.plot-card .section-title .pill{flex:0 1 auto;max-width:100%;white-space:normal;text-align:center;line-height:1.3}.plot{height:340px;position:relative;border-left:1px solid #b9c6bf;border-bottom:1px solid #b9c6bf;margin:8px 12px 36px 42px;background:linear-gradient(to top,rgba(16,107,80,.025),transparent)}.gridline{position:absolute;left:0;right:0;border-top:1px dashed #e2e8e5}.gridline span{position:absolute;left:-39px;top:-8px;width:34px;text-align:right;font-size:10px;color:#8b9691}.peer-band{position:absolute;left:0;right:0;background:rgba(21,144,106,.11);border-top:1px solid rgba(21,144,106,.35);border-bottom:1px solid rgba(21,144,106,.35)}.dot{position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #fff;background:var(--green2);box-shadow:0 1px 5px rgba(0,0,0,.25);transform:translate(-50%,50%);padding:0}.dot.out{background:var(--red);width:16px;height:16px}.dot:hover,.dot:focus{outline:3px solid rgba(21,144,106,.18);z-index:5}.dot.out:hover,.dot.out:focus{outline-color:rgba(180,35,24,.18)}.axis-label{position:absolute;font-size:11px;color:#819089}.axis-label.y{left:-44px;top:-24px}.axis-label.x{right:0;bottom:-27px}.point-info{min-height:54px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px 12px;font-size:13px}.flagbox{border:1px solid #ecc6c2;background:#fff8f7;border-radius:14px;padding:15px}.flagbox h3{margin:0 0 8px;color:var(--red);font-size:15px}.flag-instruction{font-size:12px;color:#765450;margin-bottom:9px}.flagitem{padding:9px 0;border-top:1px solid #f0d9d6;font-size:13px}.flagitem:first-of-type{border-top:0}.flagitem strong{display:block}.range{font-size:28px;font-weight:900;color:var(--green);letter-spacing:-.03em}.range small{font-size:12px;color:var(--muted);font-weight:600}
+.grade{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:28px;font-weight:900}.grade.A{background:var(--green3);color:var(--green)}.grade.B{background:var(--bluebg);color:var(--blue)}.grade.C{background:var(--amberbg);color:var(--amber)}.grade.D{background:var(--redbg);color:var(--red)}.score-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.scorebox{border:1px solid var(--line);border-radius:12px;padding:12px}.scorebox .n{font-size:22px;font-weight:900}.scorebox .label{font-size:12px;font-weight:800;margin-top:3px}.scorebox .desc{font-size:11px;color:var(--muted);margin-top:3px}
+.modal{position:fixed;inset:0;background:rgba(13,27,21,.45);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}.modal.show{display:flex}.modalbox{background:#fff;border-radius:18px;padding:22px;max-width:880px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 30px 90px rgba(0,0,0,.22)}.close{float:right;border:0;border-radius:9px;background:#eef3f0;padding:6px 9px}.factor-detail{display:grid;grid-template-columns:1fr 1.2fr .55fr;gap:10px;padding:10px 0;border-bottom:1px solid #edf1ef;align-items:center}.factor-detail:last-child{border-bottom:0}.searchbox{border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#fff;min-width:220px}.footer-note{font-size:11px;color:#8b9690;margin-top:14px}.model-flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}.model-step{flex:1 1 180px;border:1px solid var(--line);border-radius:13px;padding:14px;background:#fbfdfc}.model-step .num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;font-weight:900;font-size:12px;margin-bottom:8px}.model-step h3{margin:0 0 5px;font-size:15px}.model-step p{margin:0;font-size:12px;color:var(--muted);line-height:1.45}.formula-card{border:1px solid #cfe4da;background:#f3faf7;border-radius:13px;padding:15px}.formula{font-size:20px;font-weight:900;color:var(--green);letter-spacing:-.02em;margin:4px 0}.anon-total{font-size:34px;font-weight:900;color:var(--green);letter-spacing:-.03em}.privacy-strip{border:1px solid #d7e7df;background:#f7fbf9;border-radius:13px;padding:13px 15px;font-size:13px;color:#405149}.privacy-strip b{color:var(--green)}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.sidebar{display:none}.g4,.g3{grid-template-columns:repeat(2,1fr)}.connection-grid{grid-template-columns:1fr}.plot-wrap{grid-template-columns:1fr}.main{padding:18px}.score-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:690px){.workspace-grid,.g4,.g3,.g2,.steps,.score-grid{grid-template-columns:1fr}.head{align-items:flex-start;flex-direction:column}.topbar{padding:0 12px}.brand small{display:none}.schema-row{grid-template-columns:1fr}.plot{margin-left:38px}.searchbox{min-width:0;width:100%}.righttools{gap:4px}.select{max-width:190px}}
+</style>
+</head>
+<body>
+<section id="loginScreen" class="login">
+  <div class="loginbox">
+    <div class="loginbrand"><div class="mark">G</div><div><b style="font-size:22px">Greenovate</b><div class="mini">HOYA Scope 3 Category 10</div></div></div>
+    <h1>Choose your SSO workspace</h1>
+    <p>Sign in through your organisation's identity provider. This prototype simulates SSO; no credentials are collected.</p>
+    <div class="workspace-grid">
+      <div class="workspace"><div class="icon">C</div><h2>Customer workspace</h2><p class="mini">Submit only the data route assigned to your ESG maturity level.</p><ul><li>System connection or guided uploads</li><li>Review and confirm before submission</li><li>See your own history and data-quality score</li></ul><button class="sso" onclick="signIn('customer')">Sign in with Customer SSO</button></div>
+      <div class="workspace"><div class="icon">H</div><h2>HOYA control room</h2><p class="mini">Monitor protected ranges, peer segments, validation flags and data quality.</p><ul><li>Regional customer view</li><li>Factor-by-factor peer comparison</li><li>Validation and PACT-quality review</li></ul><button class="sso secondary" onclick="signIn('hoya')">Sign in with HOYA SSO</button></div>
+    </div>
+    <p class="demo-note">Prototype only — production SSO would connect to the approved corporate identity provider.</p>
+  </div>
+</section>
+
+<div id="appShell" class="hidden">
+<header class="topbar">
+  <div class="brand"><div class="mark">G</div><div>Greenovate<small>HOYA Scope 3 Category 10</small></div></div>
+  <div class="righttools">
+    <select id="demoMaturity" class="select" onchange="setMaturity(this.value)"><option value="high">High maturity demo</option><option value="medium" selected>Medium maturity demo</option><option value="low">Low maturity demo</option></select>
+    <button id="ssoIdentity" class="btn ghost" onclick="signOut()" title="Return to SSO sign-in">SSO · Customer</button>
+  </div>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <!-- CUSTOMER DASHBOARD -->
+    <section id="customer-home" class="page active">
+      <div class="head"><div><h1>Your Category 10 submission</h1><p>Greenovate only shows the submission route that matches your ESG maturity. Your current stage is highlighted below.</p></div><span id="maturityPill" class="pill amber">Medium maturity</span></div>
+      <div class="grid g4">
+        <div class="card stat"><div class="k">Reporting period</div><div class="v">FY2026</div><div class="s">Current cycle</div></div>
+        <div class="card stat"><div class="k">Submission status</div><div id="submissionStatus" class="v" style="font-size:22px">In progress</div><div class="s">Complete the highlighted step</div></div>
+        <div class="card stat"><div class="k">Data quality</div><div id="homeGrade" class="v" style="font-size:22px">B · Good</div><div id="homeScore" class="s">PACT score 8 / 15</div></div>
+        <div class="card stat"><div class="k">What HOYA receives</div><div class="v" style="font-size:22px">Range only</div><div class="s">Exact raw values stay protected</div></div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="section-title"><div><h2 id="journeyTitle">Upload existing records</h2><p id="journeyDesc">Upload the records you already have. Greenovate extracts the required fields.</p></div><button class="btn primary" onclick="go('customer-submit')">Continue submission</button></div>
+        <div class="steps" id="journeySteps"></div>
+      </div>
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card"><div class="section-title"><h2>Privacy by design</h2></div><div class="simple-note">HOYA sees your submission status, peer segments, protected emissions ranges, validation flags and data-quality score — not your uploaded records or exact confidential operating data.</div></div>
+        <div class="card"><div class="section-title"><h2>Your records</h2></div><p class="mini">You remain responsible for confirming what Greenovate prepares. High-maturity customers correct data in their source system and resync; medium/low customers can correct extracted values before submission.</p><button class="btn secondary" onclick="go('customer-review')">Review current data</button></div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER SUBMIT -->
+    <section id="customer-submit" class="page">
+      <div class="head"><div><h1>Submit this year's data</h1><p id="submitSubtitle"></p></div><button class="btn ghost" onclick="go('customer-home')">Back</button></div>
+      <div id="highFlow" class="flow hidden">
+        <div class="card">
+          <div class="section-title"><div><h2>Connect your reporting systems</h2><p>No manual typing. Greenovate maps your existing data into a standard Category 10 record.</p></div><span class="pill green">System-connected</span></div>
+          <div class="simple-note"><b>Standardised high-maturity lane:</b> connect via REST API / secure file feed / approved system connector. Greenovate supports either (1) downstream process GHG emissions already calculated by your system, or (2) site-specific activity data plus emission factors.</div>
+          <div class="connection-grid" style="margin-top:14px">
+            <div class="connection"><b>ESG / GHG platform</b><span><i id="conn1" class="status-dot"></i><span id="conn1text">Ready to connect</span></span><div class="mini">Process-level GHG totals, factors, reporting period</div></div>
+            <div class="connection"><b>Energy / EMS</b><span><i id="conn2" class="status-dot"></i><span id="conn2text">Ready to connect</span></span><div class="mini">Electricity, fuels, meter records</div></div>
+            <div class="connection"><b>Production / MES</b><span><i id="conn3" class="status-dot"></i><span id="conn3text">Ready to connect</span></span><div class="mini">HOYA units, allocation basis, site context</div></div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" onclick="syncHigh()">Connect & sync systems</button><label class="btn ghost" style="display:inline-block">Import standard file<input type="file" style="display:none" onchange="syncHigh()"></label></div>
+        </div>
+        <div id="highSchema" class="card hidden" style="margin-top:15px">
+          <div class="section-title"><div><h2>Standard Category 10 record</h2><p>Mapped automatically from connected source systems.</p></div><span class="pill green">Ready for review</span></div>
+          <div class="schema">
+            <div class="schema-row headrow"><div>Canonical group</div><div>Connected source</div><div>Status</div></div>
+            <div class="schema-row"><div>Reporting period, site & HOYA product</div><div>MES + customer master</div><div class="map-ok">Mapped</div></div>
+            <div class="schema-row"><div>Allocation basis</div><div>MES tool-hours / production records</div><div class="map-ok">Mapped</div></div>
+            <div class="schema-row"><div>Electricity & renewable electricity</div><div>EMS + ESG platform</div><div class="map-ok">Mapped</div></div>
+            <div class="schema-row"><div>Fuels</div><div>EMS / fuel ledger</div><div class="map-ok">Mapped</div></div>
+            <div class="schema-row"><div>Process gases & abatement</div><div>ESG / facilities system</div><div class="map-ok">Mapped</div></div>
+            <div class="schema-row"><div>Refrigerants</div><div>Facilities records</div><div class="map-ok">Mapped</div></div>
+            <div class="schema-row"><div>Processing waste</div><div>Waste / ESG system</div><div class="map-ok">Mapped</div></div>
+          </div>
+          <div class="warn-note" style="margin-top:12px">If something is wrong, correct it in the source system and resync. Greenovate does not ask high-maturity customers to re-key operational data.</div>
+          <button class="btn primary" style="margin-top:12px" onclick="go('customer-review')">Review standardised record</button>
+        </div>
+      </div>
+
+      <div id="mediumFlow" class="flow">
+        <div class="card"><div class="section-title"><div><h2>Upload your existing records</h2><p>Use the records you already maintain. Greenovate extracts and standardises the required fields.</p></div><span class="pill amber">Guided upload</span></div>
+          <div class="drop"><strong>Upload utility bills, ESG worksheets, procurement records, production records or waste manifests</strong><span>PDF, XLSX, CSV or image files</span><br><input type="file" multiple><div style="margin-top:14px"><button class="btn primary" onclick="simulateExtract('medium')">Extract & standardise</button></div></div>
+          <div id="mediumExtract" class="hidden" style="margin-top:14px"><div class="simple-note"><b>Extraction complete.</b> Greenovate found the fields required for the standard Category 10 record. Review the prepared record before submission.</div><button class="btn primary" style="margin-top:12px" onclick="go('customer-review')">Review extracted data</button></div>
+        </div>
+      </div>
+
+      <div id="lowFlow" class="flow hidden">
+        <div class="card"><div class="section-title"><div><h2>Upload bills and receipts</h2><p>No emissions expertise required. Upload what you have; Greenovate reads and organises it.</p></div><span class="pill blue">Simple upload</span></div>
+          <div class="drop"><strong>Add electricity bills, gas/fuel receipts, maintenance records, process-gas procurement records and waste manifests</strong><span>Photos, scans, PDFs and spreadsheets are accepted.</span><br><input type="file" multiple><div style="margin-top:14px"><button class="btn primary" onclick="simulateExtract('low')">Read my documents</button></div></div>
+          <div id="lowExtract" class="hidden" style="margin-top:14px"><div class="simple-note"><b>Documents read.</b> Greenovate extracted the available values and marked anything missing for your review.</div><button class="btn primary" style="margin-top:12px" onclick="go('customer-review')">Check extracted data</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER REVIEW -->
+    <section id="customer-review" class="page">
+      <div class="head"><div><h1>Review & confirm</h1><p>Check the standardised record that Greenovate will use. The preparation method changes with your maturity route.</p></div><button class="btn ghost" onclick="go('customer-submit')">Back</button></div>
+      <div class="grid g2">
+        <div class="card">
+          <div class="section-title"><div><h2>Data prepared for submission</h2><p id="reviewMethod">AI-extracted from existing records → customer review</p></div><span class="pill amber">Needs confirmation</span></div>
+          <div class="review-scroll" id="reviewMetrics"></div>
+        </div>
+        <div class="grid" style="align-content:start">
+          <div class="card"><div class="section-title"><h2>Data quality preview</h2><span id="reviewGradePill" class="pill blue">B · Good</span></div><div style="display:flex;align-items:center;gap:14px"><div id="reviewGrade" class="grade B">B</div><div><b id="reviewScore">PACT score 8 / 15</b><div class="mini">1 is strongest, 3 is weakest for each of five checks.</div></div></div><button class="btn secondary" style="margin-top:12px" onclick="go('customer-quality')">See score breakdown</button></div>
+          <div class="card"><div class="section-title"><h2>Customer confirmation</h2></div><p id="confirmText" class="mini">Confirm that the prepared values match the source records used for this submission.</p><label style="display:flex;gap:10px;align-items:flex-start;margin:16px 0"><input type="checkbox" id="confirmBox" style="margin-top:3px"><span>I checked the standardised record and confirm it is correct to the best of my knowledge.</span></label><button class="btn primary" onclick="confirmSubmit()">Confirm & submit</button><div id="submittedMsg" class="simple-note hidden" style="margin-top:13px"><b>Submitted.</b> HOYA can now see the protected range, peer-validation status and data-quality grade. Exact raw values remain protected.</div></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:15px">
+        <div class="section-title"><div><h2>How HOYA sees this submission</h2><p>Your detailed values stay confidential. HOYA sees the same reporting categories, but the underlying figures are hidden.</p></div><span class="pill green">Confidential view</span></div>
+        <div class="review-scroll" id="hoyaViewMetrics"></div>
+        <div class="simple-note" style="margin-top:14px"><b>HOYA-visible result:</b> only the final protected Category 10 range is shown — <strong id="hoyaVisibleRange">90–110 kg CO₂e/unit</strong>.</div>
+      </div>
+    </section>
+
+    <section id="customer-history" class="page">
+      <div class="head"><div><h1>Your past submissions</h1><p>See your prior reporting cycles and HOYA-visible result.</p></div></div>
+      <div class="card"><div class="tablewrap"><table><thead><tr><th>Period</th><th>Status</th><th>Method</th><th>Data quality</th><th>Confirmed</th><th>HOYA-visible result</th></tr></thead><tbody id="historyRows"></tbody></table></div></div>
+    </section>
+
+    <section id="customer-quality" class="page">
+      <div class="head"><div><h1>Data quality score</h1><p>Your score uses five 1–3 checks. A lower PACT total means stronger source quality; Greenovate also shows a simple A–D grade.</p></div></div>
+      <div class="card"><div style="display:flex;align-items:center;gap:16px"><div id="customerGrade" class="grade B">B</div><div><h2 id="customerGradeTitle" style="margin:0">Good</h2><div id="customerScore" class="mini">PACT score 8 / 15</div></div></div><div id="qualityMeaning" class="simple-note" style="margin-top:14px">Reliable data with small gaps.</div></div>
+      <div class="card" style="margin-top:15px"><div class="score-grid" id="customerScoreGrid"></div></div>
+    </section>
+
+    <section id="customer-approval" class="page">
+      <div class="head"><div><h1>Approve HOYA submission</h1><p>Approve the final Category 10 contribution that Greenovate will release to HOYA after removing your customer identity.</p></div><span id="approvalStatus" class="pill amber">Awaiting approval</span></div>
+      <div class="grid g2">
+        <div class="card">
+          <div class="section-title"><div><h2>Your final Category 10 contribution</h2><p>This is the final total calculated from your confirmed submission.</p></div><span class="pill green">Customer view</span></div>
+          <div id="customerFinalContribution" class="range" style="font-size:34px;margin:18px 0 8px">—</div>
+          <div class="mini">You can see your own final value. Your detailed operational inputs remain protected.</div>
+          <label style="display:flex;gap:10px;align-items:flex-start;margin:22px 0 16px">
+            <input type="checkbox" id="hoyaApprovalBox" style="margin-top:3px" onchange="renderCustomerApproval()">
+            <span>I approve Greenovate sending this final Category 10 contribution to HOYA without attaching my customer name.</span>
+          </label>
+          <button id="hoyaApprovalBtn" class="btn primary" onclick="approveHoyaSubmission()">Approve & release to HOYA</button>
+          <div id="approvalMessage" class="simple-note hidden" style="margin-top:14px"><b>Approved.</b> Greenovate will release the contribution as an anonymous record. HOYA cannot see which customer this value belongs to.</div>
+        </div>
+        <div class="card">
+          <div class="section-title"><div><h2>How HOYA sees the value</h2><p>The contribution is visible for aggregation, but your identity and underlying operating data are not shown.</p></div><span class="pill green">Anonymous view</span></div>
+          <div class="metric-group">
+            <div class="metricline"><span>Customer name</span><b style="color:var(--muted)">Hidden</b></div>
+            <div class="metricline"><span>Anonymous record</span><b id="customerAnonymousRecord">Record —</b></div>
+            <div class="metricline"><span>Category 10 contribution</span><b id="hoyaAnonymousContribution">—</b></div>
+            <div class="metricline"><span>Operational inputs</span><b style="color:var(--muted)">Hidden</b></div>
+          </div>
+          <div class="simple-note"><b>What HOYA receives:</b> the final Category 10 contribution as an anonymous record for portfolio aggregation — not your customer name or detailed source data.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOYA OVERVIEW -->
+    <section id="hoya-overview" class="page">
+      <div class="head"><div><h1>Reporting overview</h1><p>A simple summary of customer coverage, validation flags and data quality.</p></div></div>
+      <div class="grid g4" id="overviewStats"></div>
+      <div class="grid g2" style="margin-top:15px"><div class="card"><div class="section-title"><h2>What needs attention</h2></div><div id="attentionSummary"></div><button class="btn primary" style="margin-top:12px" onclick="go('hoya-summary')">Open validation summary</button></div><div class="card"><div class="section-title"><h2>Data quality mix</h2></div><div id="gradeMix"></div><button class="btn secondary" style="margin-top:12px" onclick="go('hoya-quality')">Open data quality scores</button></div></div>
+    </section>
+
+    <!-- HOYA CUSTOMERS -->
+    <section id="hoya-customers" class="page">
+      <div class="head"><div><h1>Customers</h1><p>All customers in the reporting population. Filter by region and open any customer for its protected range, segments and validation status.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><select id="regionFilter" class="select" onchange="renderCustomers()"></select><input id="customerSearch" class="searchbox" placeholder="Search company" oninput="renderCustomers()"></div></div>
+      <div class="grid g4" id="customerStats"></div>
+      <div class="card" style="margin-top:15px"><div class="tablewrap"><table><thead><tr><th>Customer</th><th>Region</th><th>Maturity</th><th>Product family</th><th>Protected range</th><th>Data quality</th><th>Validation</th></tr></thead><tbody id="customerRows"></tbody></table></div></div>
+    </section>
+
+    <!-- HOYA FACTORS -->
+    <section id="hoya-factors" class="page">
+      <div class="head"><div><h1>Peer segmentation validation</h1><p>Compare each customer with relevant peer segments using total Category 10 emissions only.</p></div></div>
+      <div class="card">
+        <div class="factorbar" id="factorBar"></div>
+        <div class="segment-tabs" id="segmentTabs"></div>
+        <div class="plot-wrap">
+          <div class="plot-card"><div class="section-title"><div><h2 id="chartTitle">Peer comparison</h2><p id="chartSubtitle"></p></div><span class="pill green" id="peerRangePill"></span></div><div id="plot" class="plot"></div><div id="pointInfo" class="point-info">Tap a dot to see the company name and its protected emission range.</div><div class="footer-note">Scatterplot values are simulated prototype data. The shaded band is the expected peer range for total Category 10 emissions in the selected segment.</div></div>
+          <div class="flagbox"><h3>Flagged customers</h3><div class="flag-instruction">Flag = outside the expected peer range. It triggers validation; it does not mean the customer's data is wrong.</div><div id="flags"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOYA SUMMARY -->
+    <section id="hoya-summary" class="page">
+      <div class="head"><div><h1>Validation & summary</h1><p>See exactly how many factors flag each customer. Open a row to view every factor, the customer's segment and whether it is flagged there.</p></div></div>
+      <div class="card"><div class="tablewrap"><table><thead><tr><th>Customer</th><th>Region</th><th>Protected range</th><th>Data quality</th><th>Factors flagged</th><th>Status</th></tr></thead><tbody id="summaryRows"></tbody></table></div></div>
+    </section>
+
+    <!-- HOYA QUANTILE REGRESSION -->
+    <section id="hoya-quantile" class="page">
+      <div class="head"><div><h1>Quantile regression</h1></div><span class="pill blue">Phase 2 · Dataset grows</span></div>
+      <div class="privacy-strip"><b>Prototype note:</b> the ranges below demonstrate how the Phase 2 model would be presented. In production, the β coefficients are learned from HOYA's accumulated verified historical data.</div>
+      <div class="grid g3" style="margin-top:15px">
+        <div class="formula-card"><div class="mini">Lower expected bound</div><div class="formula">Q₀.₁₀(Y|X)</div><div class="mini">10th conditional quantile</div></div>
+        <div class="formula-card"><div class="mini">Customer characteristics</div><div class="formula" style="font-size:16px">X = product + technology + scale + geography + application</div><div class="mini">All factors considered together</div></div>
+        <div class="formula-card"><div class="mini">Upper expected bound</div><div class="formula">Q₀.₉₀(Y|X)</div><div class="mini">90th conditional quantile</div></div>
+      </div>
+      <div class="card" style="margin-top:15px"><div class="section-title"><div><h2>Individualized benchmark results</h2><p>HOYA sees the model's expected range and the customer's protected submitted range. The exact customer value remains private.</p></div><span class="pill green" id="quantileSummaryPill"></span></div><div class="tablewrap"><table><thead><tr><th>Customer</th><th>Operating profile</th><th>Q10 lower</th><th>Q90 upper</th><th>Expected range</th><th>Protected submission</th><th>Result</th></tr></thead><tbody id="quantileRows"></tbody></table></div></div>
+    </section>
+
+    <!-- HOYA DATA QUALITY -->
+    <section id="hoya-quality" class="page">
+      <div class="head"><div><h1>Data quality score</h1><p>PACT-style five-part quality check for every customer. Each dimension is scored 1 (best) to 3 (weakest); Greenovate combines them into an A–D grade.</p></div><select id="gradeFilter" class="select" onchange="renderQualityTable()"><option>All grades</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+      <div class="grid g4" id="qualityLegend"></div>
+      <div class="card" style="margin-top:15px"><div class="tablewrap"><table><thead><tr><th>Customer</th><th>Right machines?</th><th>Right place?</th><th>Right year?</th><th>Anything missing?</th><th>Trusted source?</th><th>PACT total</th><th>Grade</th></tr></thead><tbody id="qualityRows"></tbody></table></div></div>
+    </section>
+
+    <!-- HOYA REGULATORY AGGREGATION -->
+    <section id="hoya-aggregate" class="page">
+      <div class="head"><div><h1>Category 10 reporting total</h1><p>Greenovate keeps customer identities separate from their calculated Category 10 contributions, then securely aggregates the anonymous contributions into HOYA's final reporting figure.</p></div><span class="pill green">Secure aggregation</span></div>
+      <div class="privacy-strip"><b>Confidentiality:</b> customer names and underlying per-blank calculations are hidden. HOYA sees only anonymous Category 10 contributions and the final aggregate.</div>
+      <div class="grid g4" id="aggregateStats" style="margin-top:15px"></div>
+      <div class="card" style="margin-top:15px"><div class="section-title"><div><h2>Anonymous Category 10 contributions</h2><p>Each anonymous record contributes to HOYA's final Category 10 total without revealing the customer name or underlying calculation inputs.</p></div></div><div class="tablewrap"><table><thead><tr><th>Anonymous record</th><th>Category 10 contribution</th></tr></thead><tbody id="aggregateRows"></tbody><tfoot><tr><th style="text-align:right">Verified exact subtotal</th><th id="verifiedExactSubtotal"></th></tr><tr><th style="text-align:right">Approved estimate adjustment</th><th id="estimateAdjustment"></th></tr><tr><th style="text-align:right;color:var(--green)">Final Category 10 reporting figure</th><th id="finalCategory10Total" style="color:var(--green);font-size:17px"></th></tr></tfoot></table></div><div class="footer-note">Prototype values are simulated. The final reporting figure is an aggregate tCO₂e total and is not paired with customer identities.</div></div>
+    </section>
+  </main>
+</div>
+</div>
+
+<div id="customerModal" class="modal"><div class="modalbox"><button class="close" onclick="closeModal()">✕</button><div id="modalBody"></div></div></div>
+
+<script>
+const companyNames=['Aurora Masks','NexFab Systems','Orion Memory','BluePeak Semi','Vector Photomask','Silica Foundry','Helio Logic','Mira Power','NovaMask Labs','Zenith Micro','Apex Lithography','Lumina Semi','Cobalt Foundry','Meridian Masks','Quantum Logic','Pacific Micro','Atlas Photomask','Ember Semiconductor','Vertex Fab','Solstice Memory','Ionix Masks','Prism Foundry','Delta Logic','Nori Semiconductor','Celestial Masks','TerraFab','Indigo Memory','Radius Photomask','Kairo Logic','Northstar Semi','Vela Foundry','Arcadia Masks','Synapse Micro','Everlight Fab','Horizon Photomask','Silverline Semi','Eastgate Logic','Mosaic Memory','Trident Foundry','Optima Masks','Redstone Micro','Lattice Semi','Polar Photomask','Cascade Fab','BrightCore Logic'];
+const factorConfig={
+ 'Product family':['EUV blanks','Advanced DUV','Other optical'],
+ 'Customer type':['Merchant photomask','IDM','Foundry','Other processor'],
+ 'Application':['Logic','DRAM','NAND','Power / analog / other'],
+ 'Technology capability':['EUV / leading-edge','Advanced DUV','Mature technology','Mixed / unknown'],
+ 'Production scale':['Small','Medium','Large'],
+ 'Geography':['USA','Taiwan','Republic of Korea'],
+ 'HOYA sales volume':['Low','Medium','High'],
+ 'Historical intensity':['Stable low','Stable medium','Stable high','No history']
+};
+const factorKeys=Object.keys(factorConfig);
+const metrics={
+ electricity:{label:'Electricity emissions',share:.61},
+ fuel:{label:'Fuel emissions',share:.12},
+ process:{label:'Process gas emissions',share:.18},
+ refrigerant:{label:'Refrigerant emissions',share:.04},
+ waste:{label:'Waste emissions',share:.05},
+ total:{label:'Total Category 10',share:1}
+};
+const metricKeys=Object.keys(metrics);
+const noDataIdx=new Set([13,39]);
+const demoTotalOverrides={3:122,7:113,15:150,17:140,28:122,33:130,36:129};
+function seededPermutation(seed){const arr=companyNames.map((_,i)=>i);let state=seed>>>0;for(let i=arr.length-1;i>0;i--){state=(Math.imul(state,1664525)+1013904223)>>>0;const j=state%(i+1);[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+const factorRank={};factorKeys.forEach((factor,fi)=>{factorRank[factor]={};seededPermutation(101+fi*977).forEach((idx,rank)=>factorRank[factor][idx]=rank);});
+function assignment(i,factor){const segs=factorConfig[factor];return segs[factorRank[factor][i]%segs.length];}
+function qualityFor(i,maturity){if(noDataIdx.has(i))return {scores:[3,3,3,3,3],grade:'D',title:'Estimate'};let s;if(maturity==='High')s=[1,1,1,(i%5===0?2:1),1];else if(maturity==='Medium')s=[2,(i%3===0?2:1),1,2,2];else s=[(i%2?3:2),2,(i%3?2:1),3,2];let total=s.reduce((a,b)=>a+b,0);let grade=total<=6?'A':total<=9?'B':'C';let title={A:'Excellent',B:'Good',C:'Uncertain',D:'Estimate'}[grade];return {scores:s,grade,title};}
+function baseTotal(i,segs){let v=58;v+= {'EUV blanks':22,'Advanced DUV':11,'Other optical':0}[segs['Product family']];v+= {'EUV / leading-edge':9,'Advanced DUV':5,'Mature technology':-4,'Mixed / unknown':1}[segs['Technology capability']];v+= {'Logic':4,'DRAM':9,'NAND':7,'Power / analog / other':-2}[segs['Application']];v+= {'Small':4,'Medium':0,'Large':-3}[segs['Production scale']];v+=((i*17)%13)-6;if(noDataIdx.has(i))v+=15;if(demoTotalOverrides[i]!==undefined)v=demoTotalOverrides[i];return Math.max(24,v);}
+const maturityPattern=['High','Medium','Medium','Low'];
+const customers=companyNames.map((name,i)=>{let segments={};factorKeys.forEach(f=>segments[f]=assignment(i,f));let maturity=maturityPattern[i%4];let q=qualityFor(i,maturity);let total=baseTotal(i,segments);let values={};for(const k of metricKeys){if(k==='total')values[k]=total;else{let wobble=1+((((i+metricKeys.indexOf(k)*3)*7)%9)-4)/100;values[k]=Math.max(.5,total*metrics[k].share*wobble);}}return {id:i+1,name,maturity,region:segments['Geography'],product:segments['Product family'],segments,quality:q,values,submitted:!noDataIdx.has(i)};});
+
+let currentMode='customer',currentMaturity='medium',currentFactor='Product family',currentSegment=factorConfig['Product family'][0],currentMetric='total';
+const stageState={high:0,medium:0,low:0};
+const demoQuality={high:{scores:[1,1,1,1,1],grade:'A',title:'Excellent'},medium:{scores:[2,1,1,2,2],grade:'B',title:'Good'},low:{scores:[3,2,2,3,2],grade:'C',title:'Uncertain'}};
+const scoreLabels=['Right machines?','Right place?','Right year?','Anything missing?','Trusted source?'];
+const scoreDesc={
+ 'Right machines?':['Exact machines that processed HOYA blanks','Similar machines / factory average','General industry figures'],
+ 'Right place?':['Actual factory','Same country / region','Global average'],
+ 'Right year?':['Current reporting year','1–2 years old','Older than that'],
+ 'Anything missing?':['All required data provided','Small gaps estimated','Large parts missing'],
+ 'Trusted source?':['Live meters / checked records','Bills or documents','Typed by hand / estimated']
+};
+const gradeMeaning={A:'Precise, trusted data.',B:'Reliable data with small gaps.',C:'Usable, but with real uncertainty.',D:'No data shared; HOYA uses a cautious estimate.'};
+
+function signIn(mode){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('appShell').classList.remove('hidden');setMode(mode);}
+function signOut(){document.getElementById('appShell').classList.add('hidden');document.getElementById('loginScreen').classList.remove('hidden');}
+function sidebar(){const s=document.getElementById('sidebar');const c=`<div class="side-label">Customer</div><button class="navbtn" data-page="customer-home">Dashboard</button><button class="navbtn" data-page="customer-submit">Submit data</button><button class="navbtn" data-page="customer-review">Review & confirm</button><button class="navbtn" data-page="customer-history">Past submissions</button><button class="navbtn" data-page="customer-quality">Data quality score</button><button class="navbtn" data-page="customer-approval">Approve HOYA submission</button>`;const h=`<div class="side-label">HOYA</div><button class="navbtn" data-page="hoya-overview">Overview</button><button class="navbtn" data-page="hoya-customers">1 · Customers</button><button class="navbtn" data-page="hoya-factors">2 · Peer segmentation validation</button><button class="navbtn" data-page="hoya-summary">3 · Validation & summary</button><button class="navbtn" data-page="hoya-quantile">4 · Quantile regression</button><button class="navbtn" data-page="hoya-quality">5 · Data quality score</button><button class="navbtn" data-page="hoya-aggregate">6 · Category 10 reporting total</button>`;s.innerHTML=currentMode==='customer'?c:h;s.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>go(b.dataset.page));}
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===id));if(id==='customer-review'){stageState[currentMaturity]=Math.max(stageState[currentMaturity],2);renderJourney();renderReview();}if(id==='customer-quality')renderCustomerQuality();if(id==='customer-approval')renderCustomerApproval();window.scrollTo({top:0,behavior:'smooth'});}
+function setMode(m){currentMode=m;const sso=document.getElementById('ssoIdentity');if(sso)sso.textContent=m==='customer'?'SSO · Customer':'SSO · HOYA';const maturity=document.getElementById('demoMaturity');if(maturity)maturity.style.display=m==='customer'?'block':'none';sidebar();if(m==='customer'){maturity.value=currentMaturity;setMaturity(currentMaturity);go('customer-home');}else{go('hoya-overview');renderAllHoya();}}
+function setMaturity(m){currentMaturity=m;document.querySelectorAll('.flow').forEach(x=>x.classList.add('hidden'));document.getElementById(m+'Flow').classList.remove('hidden');const info={high:['High maturity','green','Connect your systems','No manual entry. Sync your existing GHG / energy / production systems into the standard Category 10 schema.'],medium:['Medium maturity','amber','Upload existing records','Upload the records you already maintain. Greenovate extracts and standardises the required fields.'],low:['Low maturity','blue','Upload bills and receipts','Upload basic records and let Greenovate prepare the Category 10 fields for your confirmation.']}[m];document.getElementById('maturityPill').textContent=info[0];document.getElementById('maturityPill').className='pill '+info[1];document.getElementById('journeyTitle').textContent=info[2];document.getElementById('journeyDesc').textContent=info[3];document.getElementById('submitSubtitle').textContent=info[3];renderJourney();renderCustomerQuality();renderReview();renderHistory();renderCustomerApproval();}
+function renderJourney(){const steps={high:['Connect reporting systems','Review standardised record','Confirm & submit'],medium:['Upload existing records','Check extracted values','Confirm & submit'],low:['Upload bills / receipts','Check extracted values','Confirm & submit']}[currentMaturity];const stage=stageState[currentMaturity];document.getElementById('journeySteps').innerHTML=steps.map((x,i)=>`<div class="step ${stage===i?'current':''} ${stage>i?'done':''}"><strong>${i+1}. ${x}</strong><span>${stage===i?'You are here.':stage>i?'Completed.':'Next step.'}</span></div>`).join('');document.getElementById('submissionStatus').textContent=stage>=3?'Submitted':'In progress';const q=demoQuality[currentMaturity];document.getElementById('homeGrade').textContent=`${q.grade} · ${q.title}`;document.getElementById('homeScore').textContent=`PACT score ${q.scores.reduce((a,b)=>a+b,0)} / 15`;}
+function syncHigh(){['conn1','conn2','conn3'].forEach((id,j)=>{document.getElementById(id).classList.add('on');document.getElementById(id+'text').textContent='Connected';});document.getElementById('highSchema').classList.remove('hidden');stageState.high=1;renderJourney();}
+function simulateExtract(m){document.getElementById(m+'Extract').classList.remove('hidden');stageState[m]=1;renderJourney();}
+function metricDataForDemo(){return [
+ ['Basic details',[['Reporting period','1 Jan–31 Dec 2026','System / extracted'],['Site location','Taiwan','Customer master / document'],['HOYA blanks processed','10,000 EUV blanks','Production record']]],
+ ['Allocation',[['Total blanks processed','38,400','Production record'],['HOYA allocation basis','Tool run-hours','MES / extracted mapping'],['HOYA tool-hours vs total','2,180 / 8,360 h','Production record']]],
+ ['Electricity',[['Electricity consumed','620,000 kWh','EMS / utility bill'],['Renewable electricity','140,000 kWh','ESG record / certificate'],['Supplier-specific emission factor','0.43 kg CO₂e/kWh','Utility disclosure']]],
+ ['Fuels',[['Natural gas','24,500 kWh','Fuel ledger / gas bill'],['Diesel','860 L','Fuel receipt'],['Other fuels','0','No other fuel recorded']]],
+ ['Process gases',[['CF₄','118 kg','Procurement / ESG record'],['CHF₃','42 kg','Procurement / ESG record'],['C₂F₆','31 kg','Procurement / ESG record'],['SF₆','9 kg','Procurement / ESG record'],['NF₃','64 kg','Procurement / ESG record'],['Abatement equipment','Yes · plasma abatement','Facilities record'],['Gas utilisation / abatement efficiency','Customer-provided rates','Facilities / ESG record']]],
+ ['Refrigerants',[['Refrigerant type','R-410A','Maintenance record'],['Quantity topped up','12 kg','Service record']]],
+ ['Processing waste (optional)',[['Hazardous chemical waste','2.4 t','Waste manifest'],['General waste','1.1 t','Waste manifest'],['Scrapped blanks','0.18 t','Waste manifest'],['Treatment method','Incineration / recycling','Waste contractor record']]]
+ ];}
+function renderReview(){const q=demoQuality[currentMaturity];let method={high:'System sync → GHG Protocol Category 10 schema → customer confirmation',medium:'AI extraction from existing records → standardised Category 10 record → customer confirmation',low:'AI extraction from bills / receipts → standardised Category 10 record → customer confirmation'}[currentMaturity];document.getElementById('reviewMethod').textContent=method;document.getElementById('confirmText').textContent=currentMaturity==='high'?'Confirm the standardised record. If anything is wrong, correct it in the source system and resync before submitting.':'Confirm that the prepared values match the records used for this submission. Correct any extraction error before submitting.';const prepared=metricDataForDemo();document.getElementById('reviewMetrics').innerHTML=prepared.map(g=>`<div class="metric-group"><h3>${g[0]}</h3>${g[1].map(r=>`<div class="metricline"><span>${r[0]}<small class="source-tag">${r[2]}</small></span><b>${r[1]}</b></div>`).join('')}</div>`).join('');document.getElementById('hoyaViewMetrics').innerHTML=prepared.map(g=>`<div class="metric-group"><h3>${g[0]}</h3>${g[1].map(r=>`<div class="metricline"><span>${r[0]}</span><b style="color:var(--muted)">•••• Hidden</b></div>`).join('')}</div>`).join('');const demoTotal=100,w=widthPctByGrade(q.grade);document.getElementById('hoyaVisibleRange').textContent=`${Math.round(demoTotal*(1-w))}–${Math.round(demoTotal*(1+w))} kg CO₂e/unit`;document.getElementById('reviewGrade').textContent=q.grade;document.getElementById('reviewGrade').className='grade '+q.grade;document.getElementById('reviewGradePill').textContent=`${q.grade} · ${q.title}`;document.getElementById('reviewGradePill').className='pill '+(q.grade==='A'?'green':q.grade==='B'?'blue':q.grade==='C'?'amber':'red');document.getElementById('reviewScore').textContent=`PACT score ${q.scores.reduce((a,b)=>a+b,0)} / 15`;}
+function confirmSubmit(){if(!document.getElementById('confirmBox').checked){alert('Please confirm that you checked the standardised record.');return;}stageState[currentMaturity]=3;document.getElementById('submittedMsg').classList.remove('hidden');renderJourney();renderHistory();}
+function renderHistory(){const method={high:'System integration',medium:'Guided record upload',low:'Bills / receipts upload'}[currentMaturity];const q=demoQuality[currentMaturity];document.getElementById('historyRows').innerHTML=`<tr><td>FY2026</td><td>${stageState[currentMaturity]>=3?'<span class="pill green">Submitted</span>':'<span class="pill amber">In progress</span>'}</td><td>${method}</td><td>${q.grade} · ${q.title}</td><td>${stageState[currentMaturity]>=3?'7 Oct 2026':'—'}</td><td>${stageState[currentMaturity]>=3?'64–78 kg CO₂e/unit':'Not available yet'}</td></tr><tr><td>FY2025</td><td><span class="pill green">Submitted</span></td><td>${method}</td><td>B · Good</td><td>14 Mar 2026</td><td>61–75 kg CO₂e/unit</td></tr><tr><td>FY2024</td><td><span class="pill green">Submitted</span></td><td>Previous process</td><td>C · Uncertain</td><td>10 Mar 2025</td><td>55–82 kg CO₂e/unit</td></tr>`;}
+function renderCustomerQuality(){const q=demoQuality[currentMaturity],total=q.scores.reduce((a,b)=>a+b,0);document.getElementById('customerGrade').textContent=q.grade;document.getElementById('customerGrade').className='grade '+q.grade;document.getElementById('customerGradeTitle').textContent=q.title;document.getElementById('customerScore').textContent=`PACT score ${total} / 15 · lower is stronger`;document.getElementById('qualityMeaning').textContent=gradeMeaning[q.grade];document.getElementById('customerScoreGrid').innerHTML=scoreLabels.map((l,i)=>`<div class="scorebox"><div class="n">${q.scores[i]}</div><div class="label">${l}</div><div class="desc">${scoreDesc[l][q.scores[i]-1]}</div></div>`).join('');}
+
+const customerApprovalState={high:false,medium:false,low:false};
+function approvalDemoCustomer(){const label={high:'High',medium:'Medium',low:'Low'}[currentMaturity];return customers.find(c=>c.maturity===label&&c.submitted)||customers.find(c=>c.submitted);}
+function renderCustomerApproval(){const page=document.getElementById('customer-approval');if(!page)return;const c=approvalDemoCustomer();if(!c)return;const contribution=exactContributionT(c),record=`Record ${String(c.id).padStart(3,'0')}`;document.getElementById('customerFinalContribution').textContent=`${Math.round(contribution).toLocaleString()} tCO₂e`;document.getElementById('customerAnonymousRecord').textContent=record;document.getElementById('hoyaAnonymousContribution').textContent=`${Math.round(contribution).toLocaleString()} tCO₂e`;const approved=customerApprovalState[currentMaturity],box=document.getElementById('hoyaApprovalBox'),btn=document.getElementById('hoyaApprovalBtn'),msg=document.getElementById('approvalMessage'),status=document.getElementById('approvalStatus');if(approved){box.checked=true;box.disabled=true;btn.disabled=true;btn.textContent='Approved for HOYA';msg.classList.remove('hidden');status.textContent='Approved';status.className='pill green';}else{box.disabled=false;btn.disabled=!box.checked;btn.textContent='Approve & release to HOYA';msg.classList.add('hidden');status.textContent='Awaiting approval';status.className='pill amber';}}
+function approveHoyaSubmission(){const box=document.getElementById('hoyaApprovalBox');if(!box.checked){alert('Please approve the anonymous release of your final Category 10 contribution.');return;}customerApprovalState[currentMaturity]=true;renderCustomerApproval();}
+
+function quantile(arr,p){const a=[...arr].sort((x,y)=>x-y);const idx=(a.length-1)*p,lo=Math.floor(idx),hi=Math.ceil(idx);return a[lo]+(a[hi]-a[lo])*(idx-lo);}
+function groupFor(factor,segment){return customers.filter(c=>c.segments[factor]===segment);}
+function peerBounds(factor,segment,metric){const vals=groupFor(factor,segment).filter(c=>c.submitted).map(c=>c.values[metric]);if(vals.length<4)return {low:Math.min(...vals),high:Math.max(...vals)};const q1=quantile(vals,.25),q3=quantile(vals,.75),iqr=q3-q1;return {low:Math.max(0,q1-1.5*iqr),high:q3+1.5*iqr};}
+function factorFlag(c,factor,metric='total'){if(!c.submitted)return false;const b=peerBounds(factor,c.segments[factor],metric),v=c.values[metric];return v<b.low||v>b.high;}
+function factorFlagCount(c){return factorKeys.reduce((n,f)=>n+(factorFlag(c,f)?1:0),0);}
+function widthPctByGrade(g){return {A:.06,B:.10,C:.18,D:.30}[g];}
+function protectedRange(c,metric='total'){const v=c.values[metric],w=widthPctByGrade(c.quality.grade);return `${Math.max(0,Math.round(v*(1-w)))}–${Math.round(v*(1+w))} kg CO₂e/unit`;}
+function quantileExpected(c){
+ const lower=42
+  +({'EUV blanks':18,'Advanced DUV':8,'Other optical':0}[c.segments['Product family']]||0)
+  +({'EUV / leading-edge':10,'Advanced DUV':5,'Mature technology':-3,'Mixed / unknown':0}[c.segments['Technology capability']]||0)
+  +({'Small':4,'Medium':0,'Large':-2}[c.segments['Production scale']]||0)
+  +({'USA':2,'Taiwan':5,'Republic of Korea':4}[c.segments['Geography']]||0)
+  +({'Logic':5,'DRAM':8,'NAND':6,'Power / analog / other':-2}[c.segments['Application']]||0);
+ const upper=76
+  +({'EUV blanks':30,'Advanced DUV':16,'Other optical':5}[c.segments['Product family']]||0)
+  +({'EUV / leading-edge':15,'Advanced DUV':8,'Mature technology':-2,'Mixed / unknown':3}[c.segments['Technology capability']]||0)
+  +({'Small':6,'Medium':2,'Large':0}[c.segments['Production scale']]||0)
+  +({'USA':5,'Taiwan':10,'Republic of Korea':8}[c.segments['Geography']]||0)
+  +({'Logic':10,'DRAM':14,'NAND':12,'Power / analog / other':2}[c.segments['Application']]||0);
+ return {low:Math.max(0,lower),high:Math.max(lower+10,upper)};
+}
+function renderQuantile(){const rows=customers.filter(c=>c.submitted);let outside=0;document.getElementById('quantileRows').innerHTML=rows.map(c=>{const q=quantileExpected(c),v=c.values.total,out=v<q.low||v>q.high;if(out)outside++;const profile=[c.segments['Product family'],c.segments['Technology capability'],c.segments['Production scale'],c.segments['Geography'],c.segments['Application']].join(' · ');return `<tr class="clickrow" onclick="openCustomer(${c.id})"><td><b>${c.name}</b></td><td><span class="mini">${profile}</span></td><td>${Math.round(q.low)}</td><td>${Math.round(q.high)}</td><td><b>${Math.round(q.low)}–${Math.round(q.high)} kg CO₂e/unit</b></td><td>${protectedRange(c)}</td><td>${out?'<span class="pill red">Validate</span>':'<span class="pill green">Within expected range</span>'}</td></tr>`}).join('');document.getElementById('quantileSummaryPill').textContent=`${outside} of ${rows.length} outside individualized range`;}
+function annualHoyaBlanks(c){return 180000+((c.id*47291)%140000);}
+function exactContributionT(c){return c.values.total*annualHoyaBlanks(c)/1000;}
+function renderAggregate(){const exact=customers.filter(c=>c.submitted),estimated=customers.filter(c=>!c.submitted);const ordered=[...exact].sort((a,b)=>((a.id*7919)%104729)-((b.id*7919)%104729));let verified=0;document.getElementById('aggregateRows').innerHTML=ordered.map((c,i)=>{const contribution=exactContributionT(c);verified+=contribution;return `<tr><td><b>Record ${String(i+1).padStart(3,'0')}</b></td><td><b>${Math.round(contribution).toLocaleString()} tCO₂e</b></td></tr>`}).join('');const estimate=estimated.reduce((sum,c)=>sum+exactContributionT(c),0),finalTotal=verified+estimate;document.getElementById('verifiedExactSubtotal').textContent=`${Math.round(verified).toLocaleString()} tCO₂e`;document.getElementById('estimateAdjustment').textContent=`${Math.round(estimate).toLocaleString()} tCO₂e`;document.getElementById('finalCategory10Total').textContent=`${Math.round(finalTotal).toLocaleString()} tCO₂e`;document.getElementById('aggregateStats').innerHTML=`<div class="card stat"><div class="k">Anonymous exact records</div><div class="v">${exact.length}</div><div class="s">Customer names removed</div></div><div class="card stat"><div class="k">Estimate records</div><div class="v">${estimated.length}</div><div class="s">Approved proxy / estimate route</div></div><div class="card stat"><div class="k">Verified exact subtotal</div><div class="v" style="font-size:21px">${Math.round(verified/1000).toLocaleString()} kt</div><div class="s">From exact private customer calculations</div></div><div class="card stat"><div class="k">Final Category 10 total</div><div class="v" style="font-size:21px;color:var(--green)">${Math.round(finalTotal/1000).toLocaleString()} kt</div><div class="s">Reportable aggregate prototype figure</div></div>`;}
+function renderAllHoya(){renderOverview();renderCustomers();renderFactors();renderSummary();renderQuantile();renderQualityTable();renderAggregate();}
+function renderOverview(){const submitted=customers.filter(c=>c.submitted).length,flagged=customers.filter(c=>factorFlagCount(c)>0).length;document.getElementById('overviewStats').innerHTML=`<div class="card stat"><div class="k">Customers</div><div class="v">${customers.length}</div><div class="s">Current reporting population</div></div><div class="card stat"><div class="k">Submitted</div><div class="v">${submitted}</div><div class="s">${Math.round(submitted/customers.length*100)}% coverage</div></div><div class="card stat"><div class="k">Flagged</div><div class="v">${flagged}</div><div class="s">Outside ≥1 peer factor</div></div><div class="card stat"><div class="k">Regions</div><div class="v">3</div><div class="s">USA, Taiwan, Republic of Korea</div></div>`;document.getElementById('attentionSummary').innerHTML=`<div class="metricline"><span>Customers flagged in 3+ factors</span><b>${customers.filter(c=>factorFlagCount(c)>=3).length}</b></div><div class="metricline"><span>Customers flagged in 1–2 factors</span><b>${customers.filter(c=>factorFlagCount(c)>0&&factorFlagCount(c)<3).length}</b></div><div class="metricline"><span>No submission / estimate</span><b>${customers.filter(c=>!c.submitted).length}</b></div>`;const counts={A:0,B:0,C:0,D:0};customers.forEach(c=>counts[c.quality.grade]++);document.getElementById('gradeMix').innerHTML=Object.keys(counts).map(g=>`<div class="metricline"><span>${g} · ${{A:'Excellent',B:'Good',C:'Uncertain',D:'Estimate'}[g]}</span><b>${counts[g]}</b></div>`).join('');}
+function renderCustomers(){const filter=document.getElementById('regionFilter');if(filter.options.length===0){filter.innerHTML='<option>All regions</option>'+factorConfig['Geography'].map(x=>`<option>${x}</option>`).join('');}const region=filter.value||'All regions',q=(document.getElementById('customerSearch').value||'').toLowerCase();const rows=customers.filter(c=>(region==='All regions'||c.region===region)&&c.name.toLowerCase().includes(q));const flagged=customers.filter(c=>factorFlagCount(c)>0).length;document.getElementById('customerStats').innerHTML=`<div class="card stat"><div class="k">Customers</div><div class="v">${customers.length}</div><div class="s">All included in every factor</div></div><div class="card stat"><div class="k">Submitted</div><div class="v">${customers.filter(c=>c.submitted).length}</div><div class="s">Current reporting cycle</div></div><div class="card stat"><div class="k">Flagged</div><div class="v">${flagged}</div><div class="s">Need validation</div></div><div class="card stat"><div class="k">Showing</div><div class="v">${rows.length}</div><div class="s">After filters</div></div>`;document.getElementById('customerRows').innerHTML=rows.map(c=>`<tr class="clickrow" onclick="openCustomer(${c.id})"><td><b>${c.name}</b></td><td>${c.region}</td><td>${c.maturity}</td><td>${c.product}</td><td>${protectedRange(c)}</td><td><span class="pill ${c.quality.grade==='A'?'green':c.quality.grade==='B'?'blue':c.quality.grade==='C'?'amber':'red'}">${c.quality.grade}</span></td><td>${factorFlagCount(c)>0?`<span class="pill red">${factorFlagCount(c)} factor${factorFlagCount(c)>1?'s':''}</span>`:'<span class="pill green">Within peers</span>'}</td></tr>`).join('');}
+function renderFactors(){currentMetric='total';document.getElementById('factorBar').innerHTML=factorKeys.map(f=>`<button class="chip ${f===currentFactor?'active':''}" onclick="pickFactor('${f.replaceAll("'","\'")}')">${f}</button>`).join('');const segs=factorConfig[currentFactor];if(!segs.includes(currentSegment))currentSegment=segs[0];document.getElementById('segmentTabs').innerHTML=segs.map(s=>`<button class="seg-tab ${s===currentSegment?'active':''}" onclick="pickSegment('${s.replaceAll("'","\'")}')">${s} · ${groupFor(currentFactor,s).length}</button>`).join('');renderPlot();}
+function pickFactor(f){currentFactor=f;currentSegment=factorConfig[f][0];renderFactors()}function pickSegment(s){currentSegment=s;renderFactors()}
+
+function renderPlot(){const group=groupFor(currentFactor,currentSegment).filter(c=>c.submitted);const b=peerBounds(currentFactor,currentSegment,currentMetric);const vals=group.map(c=>c.values[currentMetric]);const max=Math.max(...vals,b.high)*1.18;document.getElementById('chartTitle').textContent=`${currentSegment} · Total Category 10 emissions`;document.getElementById('chartSubtitle').textContent=`${group.length} submitted customers in this segment · total Category 10 only. Tap any dot for company details.`;document.getElementById('peerRangePill').textContent=`Expected peer range: ${Math.round(b.low)}–${Math.round(b.high)} kg CO₂e/unit`;const plot=document.getElementById('plot');plot.innerHTML='';[.25,.5,.75,1].forEach(p=>{const gl=document.createElement('div');gl.className='gridline';gl.style.bottom=(p*100)+'%';gl.innerHTML=`<span>${Math.round(max*p)}</span>`;plot.appendChild(gl);});const band=document.createElement('div');band.className='peer-band';band.style.bottom=(b.low/max*100)+'%';band.style.height=Math.max(1,(b.high-b.low)/max*100)+'%';plot.appendChild(band);const yl=document.createElement('div');yl.className='axis-label y';yl.textContent='kg CO₂e/unit';plot.appendChild(yl);const xl=document.createElement('div');xl.className='axis-label x';xl.textContent='customers →';plot.appendChild(xl);group.forEach((c,i)=>{const d=document.createElement('button');const out=factorFlag(c,currentFactor,currentMetric);d.className='dot '+(out?'out':'');d.style.left=((i+.5)/group.length*100)+'%';d.style.bottom=(c.values[currentMetric]/max*100)+'%';d.title=c.name;d.setAttribute('aria-label',`${c.name}: ${protectedRange(c,currentMetric)}`);d.onclick=()=>showPoint(c,currentMetric,out);plot.appendChild(d);});const outs=group.filter(c=>factorFlag(c,currentFactor,currentMetric));document.getElementById('flags').innerHTML=outs.length?outs.map(c=>`<div class="flagitem"><strong>${c.name}</strong><span>${protectedRange(c,currentMetric)}</span></div>`).join(''):'<div class="mini">No customers are outside the expected peer range for this view.</div>';document.getElementById('pointInfo').textContent='Tap a dot to see the company name and its protected emission range.';}
+function showPoint(c,metric,out){document.getElementById('pointInfo').innerHTML=`<b>${c.name}</b> · ${metrics[metric].label}: <b>${protectedRange(c,metric)}</b> ${out?'<span class="pill red" style="margin-left:6px">Outlier</span>':'<span class="pill green" style="margin-left:6px">Within peer range</span>'}`;}
+function renderSummary(){document.getElementById('summaryRows').innerHTML=customers.map(c=>{const n=factorFlagCount(c);return `<tr class="clickrow" onclick="openCustomer(${c.id})"><td><b>${c.name}</b><div class="mini">${c.maturity} maturity</div></td><td>${c.region}</td><td>${protectedRange(c)}</td><td><span class="pill ${c.quality.grade==='A'?'green':c.quality.grade==='B'?'blue':c.quality.grade==='C'?'amber':'red'}">${c.quality.grade} · ${c.quality.title}</span></td><td><b>${n} / ${factorKeys.length}</b></td><td>${!c.submitted?'<span class="pill red">Estimate</span>':n?'<span class="pill red">Validate</span>':'<span class="pill green">No factor flags</span>'}</td></tr>`}).join('');}
+function renderQualityTable(){const gf=document.getElementById('gradeFilter'),grade=gf?gf.value:'All grades';const rows=customers.filter(c=>grade==='All grades'||c.quality.grade===grade);document.getElementById('qualityLegend').innerHTML=['A','B','C','D'].map(g=>`<div class="card stat"><div class="k">Grade ${g}</div><div class="v" style="font-size:20px">${{A:'Excellent',B:'Good',C:'Uncertain',D:'Estimate'}[g]}</div><div class="s">${gradeMeaning[g]}</div></div>`).join('');document.getElementById('qualityRows').innerHTML=rows.map(c=>`<tr class="clickrow" onclick="openCustomer(${c.id})"><td><b>${c.name}</b></td>${c.quality.scores.map(s=>`<td>${s}</td>`).join('')}<td><b>${c.quality.scores.reduce((a,b)=>a+b,0)} / 15</b></td><td><span class="pill ${c.quality.grade==='A'?'green':c.quality.grade==='B'?'blue':c.quality.grade==='C'?'amber':'red'}">${c.quality.grade}</span></td></tr>`).join('');}
+function openCustomer(id){const c=customers.find(x=>x.id===id),n=factorFlagCount(c),total=c.quality.scores.reduce((a,b)=>a+b,0);document.getElementById('modalBody').innerHTML=`<h2 style="margin:0 0 5px">${c.name}</h2><p class="mini">${c.region} · ${c.maturity} maturity · ${c.product}</p><div class="grid g3" style="margin-top:14px"><div class="card" style="box-shadow:none"><div class="mini">Protected Category 10 range</div><div class="range">${protectedRange(c)}</div></div><div class="card" style="box-shadow:none"><div class="mini">Factors flagged</div><div class="range" style="color:${n?'var(--red)':'var(--green)'}">${n} / ${factorKeys.length}</div></div><div class="card" style="box-shadow:none"><div class="mini">Data quality</div><div style="display:flex;gap:10px;align-items:center;margin-top:7px"><div class="grade ${c.quality.grade}" style="width:44px;height:44px;font-size:22px">${c.quality.grade}</div><div><b>${c.quality.title}</b><div class="mini">PACT ${total} / 15</div></div></div></div></div><div class="card" style="box-shadow:none;margin-top:14px"><div class="section-title"><h2>Every factor & segment</h2><span class="mini">Flag based on total Category 10 peer comparison</span></div><div><div class="factor-detail mini" style="font-weight:800;text-transform:uppercase;letter-spacing:.05em"><div>Factor</div><div>Segment</div><div>Flag</div></div>${factorKeys.map(f=>`<div class="factor-detail"><div><b>${f}</b></div><div>${c.segments[f]}</div><div>${factorFlag(c,f)?'<span class="pill red">Yes</span>':'<span class="pill green">No</span>'}</div></div>`).join('')}</div></div><div class="card" style="box-shadow:none;margin-top:14px"><div class="section-title"><h2>Data quality breakdown</h2><span class="mini">1 = best · 3 = weakest</span></div><div class="score-grid">${scoreLabels.map((l,i)=>`<div class="scorebox"><div class="n">${c.quality.scores[i]}</div><div class="label">${l}</div><div class="desc">${scoreDesc[l][c.quality.scores[i]-1]}</div></div>`).join('')}</div></div>`;document.getElementById('customerModal').classList.add('show');}
+function closeModal(){document.getElementById('customerModal').classList.remove('show');}
+
+document.getElementById('customerModal').addEventListener('click',e=>{if(e.target.id==='customerModal')closeModal();});
+setMaturity('medium');renderAllHoya();renderHistory();
+</script>
+</body>
 </html>
